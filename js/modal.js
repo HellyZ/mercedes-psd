@@ -1,14 +1,19 @@
-const modalBtn = document.querySelector('.more');
-const modal = document.querySelector('.modal');
+const modalBtns = document.querySelectorAll('.more');
+const modals = document.querySelectorAll('.modal');
 
-modalBtn.addEventListener('click', () => {
-  modal.classList.remove('hidden');
+modalBtns.forEach((btn) => {
+  btn.addEventListener('click', () => {
+    modals.forEach((modal) => modal.classList.remove('hidden'))
+  })
 })
 
-modal.addEventListener('click', (event) => {
-  const target = event.target
-
-  if (target.classList.contains('overlay') || target.classList.contains('modal__close')) {
-    modal.classList.add('hidden');
-  } 
+modals.forEach((modal) => {
+  modal.addEventListener('click', (event) => {
+    const target = event.target
+  
+    if (target.classList.contains('overlay') || target.classList.contains('modal__close')) {
+      modal.classList.add('hidden');
+    } 
+  })
 })
+
