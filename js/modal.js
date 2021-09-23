@@ -1,6 +1,5 @@
 const modalBtn = document.querySelector('.more');
 const modal = document.querySelector('.modal');
-console.log(modalBtn);
 
 modalBtn.addEventListener('click', () => {
   modal.classList.remove('hidden');
@@ -11,6 +10,5 @@ modal.addEventListener('click', (event) => {
 
   if (target.classList.contains('overlay') || target.classList.contains('modal__close')) {
     modal.classList.add('hidden');
-    console.log('close')
   } 
 })
