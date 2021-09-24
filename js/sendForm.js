@@ -1,32 +1,41 @@
 const form = document.querySelector('.form-test-drive')
+const formUrl = 'https://jsonplaceholder.typicode.com/posts'
 
 form.addEventListener('submit', (event) => {
+  const formData = {}
+  let emptyField = false
+
   event.preventDefault()
 
-  let data = {}
 
   for (let {name, value} of form.elements){
     if (name) {
-      data[name] = value
+      value = value.trim();
+      formData[name] = value;
+      if (value == '') emptyField = true;
     }
   }
 
-  fetch('https://jsonplaceholder.typicode.com/posts', {
-    method: 'POST',
-    body: JSON.stringify(data)
-  })
-      .then(response => {
-          if (response.status === 200 || response.status === 201){
-            return response.json()
-          } else {
-            throw new Error(response.status)
-          }
-        })
-        .then(data => {
-          alert('mission complete')
-          form.reset()
-        })
-        .catch(error => {
-          alert('Error: ' + error.message)
-        })
+  if (emptyField) alert('Заполнены не все поля формы')
+  else {
+    fetch(formUrl, {
+      method: 'POST',
+      body: JSON.stringify(formData)
+    })
+    .then(response => {
+      if (response.status === 200 || response.status === 201){
+        return response.json()
+      } else {
+        throw new Error(response.status)
+      }
+    })
+    .then(data => {
+      alert('mission complete')
+      form.reset()
+    })
+    .catch(error => {
+      alert('Error: ' + error.message)
+    })
+  }
+
 })
